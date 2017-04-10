@@ -10,30 +10,23 @@ var updateId = (req, res, next) => {
 };
 
 lionRouter.param('id', (req, res, next, id) => {
-  let selectedLion = lions.filter(lion => return lion.id === id;)
+  let selectedLion = lions.filter(lion => lion.id === id);
   req.body = selectedLion;
   next();
-});
-
-lionRouter.get('/', (req, res) => {
+})
+.get('/', (req, res) => {
   res.json(lions);
-});
-
-lionRouter.get('/:id', (req, res) => {
+})
+.get('/:id', (req, res) => {
   var lion = req.todo;
   res.json(lion || {});
-});
-
-lionRouter.post('/', updateId, (req, res) => {
+})
+.post('/', updateId, (req, res) => {
   var lion = req.body;
-
   lions.push(lion);
-
   res.json(lion);
-});
-
-
-lionRouter.put('/:id', (req, res) => {
+})
+.put('/:id', (req, res) => {
   var update = req.body;
   if (update.id) {
     delete update.id
@@ -46,10 +39,6 @@ lionRouter.put('/:id', (req, res) => {
     var updatedLion = _.assign(lions[lion], update);
     res.json(updatedLion);
   }
-});
-
-app.use((err, req, res, next) => {
-  if(err) res.status(500).send(err);
 });
 
 module.exports = lionRouter;
