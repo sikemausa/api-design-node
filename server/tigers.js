@@ -18,34 +18,28 @@ var updateId = function(req, res, next) {
 
 tigerRouter.param('id', function(req, res, next, id) {
   var todo = _.find(todos, {id: id});
-
   if (todo) {
     req.todo = todo;
     next();
   } else {
     res.send();
   }
-});
-
-tigerRouter.get('/', function(req, res){
+})
+.get('/', function(req, res){
   res.json(tigers);
-});
-
-tigerRouter.get('/:id', function(req, res){
+})
+.get('/:id', function(req, res){
   var tiger = req.todo;
   res.json(tiger || {});
-});
-
-tigerRouter.post('/', updateId, function(req, res) {
+})
+.post('/', updateId, function(req, res) {
   var tiger = req.body;
 
   tigers.push(tiger);
 
   res.json(tiger);
-});
-
-
-tigerRouter.put('/:id', function(req, res) {
+})
+.put('/:id', function(req, res) {
   var update = req.body;
   if (update.id) {
     delete update.id
